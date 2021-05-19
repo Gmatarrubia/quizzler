@@ -53,4 +53,7 @@ class QuizBrain {
     _questionNumber = 0;
   }
 
+  int getNumberOfQuestions() {
+    return _questionBank.length;
+  }
 }

@@ -33,10 +33,22 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
   void finishPopUpShow(context) async {
+    int numTotalquestion = quizBrain.getNumberOfQuestions();
     await Alert(
       context: context,
-      title: "RFLUTTER ALERT",
-      desc: "Flutter is more awesome with RFlutter Alert.",
+      title: "Finished Quiz!",
+      desc: "Score: 3 of $numTotalquestion.",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Play Again!",
+            style: TextStyle(
+              color: Colors.white, fontSize: 18),
+          ),
+          color: Colors.green,
+          onPressed: () => Navigator.pop(context),
+        ),
+      ],
     ).show();
   }
 
