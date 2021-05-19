@@ -32,12 +32,12 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
-  void finishPopUpShow(context) async {
+  void finishPopUpShow(context, int results) async {
     int numTotalquestion = quizBrain.getNumberOfQuestions();
     await Alert(
       context: context,
       title: "Finished Quiz!",
-      desc: "Score: 3 of $numTotalquestion.",
+      desc: "Score: $results of $numTotalquestion.",
       buttons: [
         DialogButton(
           child: Text(
@@ -53,15 +53,13 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void checkAnswer(bool userPickedAnswer) {
-    bool correctAnswer = quizBrain.getCorrectAnswer();
-
     setState(() {
       if (quizBrain.isFinished()) {
-        finishPopUpShow(context);
+        finishPopUpShow(context, quizBrain.getRightAnswers());
         quizBrain.reset();
         scoreKeeper = [];
       } else {
-        if (userPickedAnswer == correctAnswer) {
+        if (quizBrain.answerQuestion(userPickedAnswer)) {
           scoreKeeper.add(Icon(
             Icons.check,
             color: Colors.green,
